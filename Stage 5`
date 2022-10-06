@@ -1,0 +1,105 @@
+import random
+
+while True:
+    while True:
+        pencils = input("How many pencils would you like to use: ")
+        try:
+            int(pencils)
+            break
+        except ValueError:
+            print("The number of pencils should be numeric")
+            continue
+    pencils = int(pencils)
+    if pencils < 0:
+        print("The number of pencils should be numeric")
+    elif pencils == 0:
+        print("The number of pencils should be positive")
+    else:
+        break
+
+
+# Deciding who will go first
+
+name_list = ["John", "Jack"]
+while True:
+    name = input("Who will go first (" + str(name_list[0]) + "," + str(name_list[1]) + ")")
+    if name not in name_list:
+        print("Choose between " + name_list[0] + " and " + name_list[1])
+    else:
+        break
+
+away = 0
+bot = 0
+
+if name == name_list[0]:
+    bot = 0
+else:
+    bot = 1
+
+print("|" * pencils)
+
+if bot == 1:
+    print(name + "'s turn:")
+else:
+    print(name + "'s turn!")
+
+while pencils > 0:
+    while bot == 1 and pencils > 0:
+        if pencils == 5:
+            away = random.randint(1, 3)
+            print(away)
+        elif pencils % 5 == 0:
+            away = 2
+            print(away)
+        elif pencils % 4 == 0:
+            away = 3
+            print(away)
+        elif pencils % 3 == 0:
+            away = 2
+            print(away)
+        elif pencils % 5 > 3:
+            away = random.randint(1, 3)
+            print(away)
+        elif pencils % 5 == 3:
+            away = 3
+            print(away)
+        elif pencils % 5 == 2:
+            away = 2
+            print(away)
+        else:
+            away = 1
+            print(away)
+
+        pencils -= away
+        if pencils > 0:
+            print(pencils * "|")
+            bot = 0
+            print(name_list[bot] + "'s turn!")
+        else:
+            bot = 0
+            print(name_list[bot] + " won!")
+
+    while bot == 0 and pencils > 0:
+        while True:
+            take_away = input()
+            try:
+                int(take_away)
+                break
+            except ValueError:
+                print("Possible values:'1','2', or '3'")
+                continue
+        take_away = int(take_away)
+        if take_away not in [1, 2, 3]:
+            print("Possible values:'1','2', or '3'")
+        elif take_away > pencils:
+            print("Too many pencils were taken")
+        else:
+            pencils -= take_away
+            if pencils > 0:
+                print(pencils * "|")
+                bot = 1
+                print(name_list[bot] + "'s turn:")
+            else:
+                bot = 1
+                print(name_list[bot] + " won!")
+
